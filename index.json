@@ -1,10 +1,1261 @@
 {
   "skills": [
     {
+      "name": "agent-platform-alert-configuration",
+      "version": "1",
+      "description": "Configures best-practice alerting policies for Google Cloud Vertex AI / Agent Platform agents on Agent Runtime. Use when analyzing, writing, or deploying alerting policies to monitor agent latency, error rates, and quality metrics (response quality, tool use, hallucination). Also use when provisioning online monitors for quality evaluation, or analyzing live metrics traffic footprints. NOTE: This skill currently only works for the Agent Runtime. Don't use for configuring general GCP alert policies or non-agent GCP alerting policies.",
+      "files": [
+        "SKILL.md",
+        "assets/alerts_initial_duplicate.tf",
+        "assets/draft_invalid_query.tf",
+        "assets/mock_bursty.json",
+        "assets/mock_seasonal.json",
+        "assets/mock_steady.json",
+        "references/has_historical_traffic_data.md",
+        "references/no_historical_traffic_data.md",
+        "references/promql_queries.md",
+        "references/telemetry_enablement.md",
+        "scripts/analyze_traffic.py",
+        "scripts/analyze_traffic_test.py",
+        "scripts/check_telemetry.py",
+        "scripts/check_telemetry_test.py",
+        "scripts/create_online_monitor.py",
+        "scripts/create_online_monitor_test.py",
+        "scripts/requirements.txt",
+        "scripts/validate_config.py",
+        "scripts/validate_config_test.py"
+      ]
+    },
+    {
+      "name": "agent-platform-deploy",
+      "version": "1",
+      "description": "Deploy open models or custom weights from Model Garden to Agent Platform endpoints, check deployment status, verify serving endpoints, or clean up resources by undeploying models and deleting endpoints. Use when asked to deploy models on Agent Platform, list available Model Garden models, check if a model is deployable, query deployment cost, troubleshoot deployment errors (like quota limits), or undeploy/clean up endpoints. Also use when copying and deploying a 1P Tuned Model. Don't use for public Vertex AI deployments (use the `vertex-deploy` skill) or for running model evaluations (use the `agent-platform-eval` skill).",
+      "files": [
+        "SKILL.md",
+        "references/copy_deploy_guide.md",
+        "references/usage.md",
+        "scripts/config_gcloud_cli.sh"
+      ]
+    },
+    {
+      "name": "agent-platform-endpoint-management",
+      "version": "1",
+      "description": "Manages Agent Platform serving endpoints. Use when you need to create, list, describe, update, or delete serving endpoints for model deployment on Agent Platform. Also use when troubleshooting endpoint permission, quota, or resource busy errors. Don't use for deploying models to endpoints or for running model evaluations.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "agent-platform-eval-flywheel",
+      "version": "1",
+      "description": "Measures and improves the quality of AI models and agents on Google Cloud using the Eval Quality Flywheel methodology. Use when evaluating an agent or model, building an eval dataset, picking or writing evaluation metrics, analyzing failures, comparing results before and after a fix, or when guidance is needed on Agent Platform eval methodology \u2014 including dataset schema, LLM-as-judge scoring, and common failure causes. For fine-tuning, use agent-platform-tuning. For general production deployment, use agent-platform-deploy.",
+      "files": [
+        "SKILL.md",
+        "references/dataset_schema.md",
+        "references/deployment.md",
+        "references/failure_patterns.md",
+        "references/metric_registry.md",
+        "references/sdk_patterns.md",
+        "scripts/compare_results.py",
+        "scripts/endpoint_evaluation.py",
+        "scripts/inspect_results.py",
+        "scripts/maas_evaluation.py",
+        "scripts/parse_adk_traces.py",
+        "scripts/render_html_report.py",
+        "scripts/validate_dataset.py"
+      ]
+    },
+    {
+      "name": "agent-platform-inference",
+      "version": "1",
+      "description": "Connects to and performs inference with Google Cloud Agent Platform GenAI models, including First-Party Gemini models and Third-Party OpenMaaS models (Llama, DeepSeek, Qwen, etc.). Use when you need to generate code for calling Gemini or OpenMaaS models, authenticate with GenAI SDK, OpenAI SDK, or legacy Agent Platform SDK, configure base URLs and global/regional endpoints, or troubleshoot 429 Resource Exhausted (DSQ), 400 User Validation, or 404 Not Found errors. Don't use for deploying models to endpoints or for running model evaluations.",
+      "files": [
+        "SKILL.md",
+        "scripts/gemini_genai_sdk.py",
+        "scripts/gemini_openai_sdk.py",
+        "scripts/gemini_vertexai_sdk.py",
+        "scripts/openmaas_genai_sdk.py",
+        "scripts/openmaas_openai_sdk.py",
+        "scripts/openmaas_vertexai_sdk.py",
+        "scripts/requirements.txt",
+        "scripts/verify_all.sh"
+      ]
+    },
+    {
+      "name": "agent-platform-migrate-from-ai-studio",
+      "version": "1",
+      "description": "Guides agents and users through migrating from Gemini API in Google AI Studio to Gemini Enterprise Agent Platform (formerly Vertex AI). Use this skill when moving applications to Google Cloud, to leverage Cloud credits, or to unify inferencing with other Cloud infrastructure (IAM, billing, telemetry).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "agent-platform-model-registry",
+      "version": "1",
+      "description": "Agent Platform Model Registry Management. Use when you need to upload, list, describe, update, or delete machine learning models (and their versions) in the Agent Platform Model Registry. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform models.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "agent-platform-prompt-management",
+      "version": "1",
+      "description": "Manages and orchestrates prompts in Agent Platform. Use when you need to create, list, retrieve, version, or delete managed prompts in Agent Platform. Don't use for model training, model deployment to endpoints, or managing non-Agent Platform prompts.",
+      "files": [
+        "SKILL.md",
+        "references/create.md"
+      ]
+    },
+    {
+      "name": "agent-platform-rag-engine-management",
+      "version": "1",
+      "description": "Manage and query Agent Platform RAG Engine Corpora and retrieve grounded contexts using the Google GenAI SDK. Use when listing RAG corpora or files, inspecting a corpus, retrieving contexts, or generating content grounded in a RAG corpus. Do not use for standard database queries (use SQL/Spanner skills), Google Workspace RAG, or other RAG products like gRAG.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "agent-platform-skill-registry",
+      "version": "1",
+      "description": "Interact with the Gemini Enterprise Agent Platform Skill Registry to create and search for available skills. Use this skill to enable agents to register functionality or discover new capabilities.",
+      "files": [
+        "SKILL.md",
+        "references/generate-skill.md",
+        "references/manage-skills.md",
+        "references/monitor-operations.md",
+        "references/query-skills.md",
+        "scripts/requirements.txt",
+        "scripts/skill_registry_ops.py",
+        "scripts/validate_env.py"
+      ]
+    },
+    {
+      "name": "agent-platform-tuning",
+      "version": "1",
+      "description": "Agent Platform Model Tuning. Use when you need to fine-tune open models or Gemini models using Agent Platform infrastructure. Don't use for model training outside Agent Platform, model deployment to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+      "files": [
+        "SKILL.md",
+        "references/data_prep.md",
+        "references/hf_datasets.md",
+        "references/models.md",
+        "references/requirements.txt",
+        "references/tuning_guide.md",
+        "scripts/calculate_cost.py",
+        "scripts/cancel_tuning_job.py",
+        "scripts/monitor_tuning_job.py",
+        "scripts/prepare_dataset.py",
+        "scripts/tune_open_model.py"
+      ]
+    },
+    {
+      "name": "agent-platform-tuning-management",
+      "version": "1",
+      "description": "Manages GenAI tuning jobs in Agent Platform. Use this to list, get, or cancel ongoing model tuning jobs. Don't use for fine-tuning models (use `agent-platform-tuning`), deploying models to endpoints (use `agent-platform-deploy`), or managing serving endpoints (use `agent-platform-endpoint-management`).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "agents-sdk",
+      "version": "1",
+      "description": "Build AI agents on Cloudflare Workers using the Agents SDK. Load when creating stateful agents, durable workflows, real-time WebSocket apps, scheduled tasks, MCP servers, chat applications, voice agents, or browser automation. Covers Agent class, state management, callable RPC, Workflows, durable execution, queues, retries, observability, and React hooks. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md",
+        "references/browse-the-web.md",
+        "references/callable.md",
+        "references/client-sdk.md",
+        "references/codemode.md",
+        "references/configuration.md",
+        "references/durable-execution.md",
+        "references/email.md",
+        "references/human-in-the-loop.md",
+        "references/mcp.md",
+        "references/observability.md",
+        "references/queue-retries.md",
+        "references/routing.md",
+        "references/server-driven-messages.md",
+        "references/state-scheduling.md",
+        "references/streaming-chat.md",
+        "references/think.md",
+        "references/voice.md",
+        "references/webhooks-push.md",
+        "references/workflows.md"
+      ]
+    },
+    {
+      "name": "alloydb-basics",
+      "version": "1",
+      "description": "Manages clusters, instances, and backups for AlloyDB for PostgreSQL, and integrates with AlloyDB model context protocol (MCP) tools for automated database operations.",
+      "files": [
+        "SKILL.md",
+        "references/cli-usage.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/iam-security.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "bigquery-ai-ml",
+      "version": "1",
+      "description": "Leverages BigQuery's built-in machine learning and GenAI capabilities for advanced data analytics. Use when you need to write SQL queries that perform time-series forecasting, detect outliers, find key drivers, or leverage generative AI capabilities in BigQuery.",
+      "files": [
+        "SKILL.md",
+        "references/ai_detect_anomalies.md",
+        "references/ai_forecast.md",
+        "references/ai_generate.md",
+        "references/ai_key_drivers.md"
+      ]
+    },
+    {
+      "name": "bigquery-basics",
+      "version": "1",
+      "description": "Manages datasets, tables, and jobs in BigQuery. Use when you need to interact with BigQuery, run SQL queries, manage BigQuery resources (datasets, tables, views), or perform basic data ingestion and analysis.",
+      "files": [
+        "SKILL.md",
+        "references/cli-usage.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/iam-security.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "bigquery-bigframes",
+      "version": "1",
+      "description": "Generates Python code using BigQuery DataFrames (BigFrames), the pandas/scikit-learn-style API over BigQuery. Use when writing BigFrames code or doing pandas-style dataframe/ML work against BigQuery (e.g. in a notebook). Don't use for SQL-first workflows or the google-cloud-bigquery client library \u2014 use bigquery-basics.",
+      "files": [
+        "SKILL.md",
+        "references/linear_regression.md",
+        "references/logistic_regression.md"
+      ]
+    },
+    {
+      "name": "bigtable-basics",
+      "version": "1",
+      "description": "Assists in provisioning instances/tables, designing performant schemas, and querying data in Bigtable. Use when designing Bigtable row keys, configuring column families, writing SQL queries or client library code (Java, Go, Python) for Bigtable, or diagnosing performance/hotspotting issues. Also use when provisioning Bigtable clusters using gcloud or cbt CLIs. Don't use for generic Cloud SQL administration.",
+      "files": [
+        "SKILL.md",
+        "assets/row_key_schema.yaml",
+        "references/cli_data_access.md",
+        "references/client_libraries.md",
+        "references/dataplex.md",
+        "references/infrastructure_management.md",
+        "references/schema_design.md",
+        "references/sql_guide.md"
+      ]
+    },
+    {
+      "name": "cloud-logging-query-generation",
+      "version": "1",
+      "description": "Generates Logging Query Language (LQL) queries for Google Cloud Logging from natural language. Use this skill when you need to query log data or when you are debugging issues. You can filter log data by Google Cloud service. Don't use this skill to query other databases, such as SQL or Spanner.",
+      "files": [
+        "SKILL.md",
+        "references/api_reference.md",
+        "references/query_app_engine.md",
+        "references/query_bigquery.md",
+        "references/query_cloud_functions.md",
+        "references/query_cloud_observability.md",
+        "references/query_cloud_run.md",
+        "references/query_cloud_source_repositories.md",
+        "references/query_cloud_sql.md",
+        "references/query_cloud_storage.md",
+        "references/query_cloud_tasks.md",
+        "references/query_compute_engine.md",
+        "references/query_dataflow.md",
+        "references/query_dataproc.md",
+        "references/query_deployment_manager.md",
+        "references/query_gke.md",
+        "references/query_iam.md",
+        "references/query_networking.md",
+        "references/query_security.md",
+        "references/query_service_usage.md",
+        "references/query_spanner.md",
+        "references/query_third_party.md"
+      ]
+    },
+    {
+      "name": "cloud-monitoring-metric-selection",
+      "version": "1",
+      "description": "Retrieve, query, and identify relevant Google Cloud Monitoring metric descriptors for a GCP service or resource (such as Compute Engine, Spanner, BigQuery, Cloud Run, Cloud SQL, Pub/Sub, Cloud Storage, etc.). Use when asked to find, list, search, or discover GCP metric types, names, kind/value schemas, or descriptors.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "cloud-run-basics",
+      "version": "1",
+      "description": "Manages Cloud Run services, jobs, and worker pools. Use when you need to deploy applications responding to HTTP requests (services), run event-triggered or scheduled tasks (jobs), or handle always-on pull-based background processing (worker pools).",
+      "files": [
+        "SKILL.md",
+        "references/cli-usage.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/iam-security.md",
+        "references/mcp-usage.md",
+        "references/networking.md"
+      ]
+    },
+    {
+      "name": "cloud-sql-basics",
+      "version": "1",
+      "description": "This file generates or explains Cloud SQL resources. Use this file when the user asks to create a Cloud SQL instance or database for MySQL, PostgreSQL, or SQL Server.",
+      "files": [
+        "SKILL.md",
+        "references/cli-usage.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/iam-security.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "cloudflare",
+      "version": "1",
+      "description": "Comprehensive Cloudflare platform skill covering Workers, Pages, storage (KV, D1, R2), AI (Workers AI, Vectorize, Agents SDK), feature flags (Flagship), networking (Tunnel, Spectrum), security (WAF, DDoS), and infrastructure-as-code (Terraform, Pulumi). Use for any Cloudflare development task. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md",
+        "references/agents-sdk/README.md",
+        "references/agents-sdk/api.md",
+        "references/agents-sdk/configuration.md",
+        "references/agents-sdk/gotchas.md",
+        "references/agents-sdk/patterns.md",
+        "references/ai-gateway/README.md",
+        "references/ai-gateway/configuration.md",
+        "references/ai-gateway/dynamic-routing.md",
+        "references/ai-gateway/features.md",
+        "references/ai-gateway/sdk-integration.md",
+        "references/ai-gateway/troubleshooting.md",
+        "references/ai-search/README.md",
+        "references/ai-search/api.md",
+        "references/ai-search/configuration.md",
+        "references/ai-search/gotchas.md",
+        "references/ai-search/patterns.md",
+        "references/analytics-engine/README.md",
+        "references/analytics-engine/api.md",
+        "references/analytics-engine/configuration.md",
+        "references/analytics-engine/gotchas.md",
+        "references/analytics-engine/patterns.md",
+        "references/api-shield/README.md",
+        "references/api-shield/api.md",
+        "references/api-shield/configuration.md",
+        "references/api-shield/gotchas.md",
+        "references/api-shield/patterns.md",
+        "references/api/README.md",
+        "references/api/api.md",
+        "references/api/configuration.md",
+        "references/api/gotchas.md",
+        "references/api/patterns.md",
+        "references/argo-smart-routing/README.md",
+        "references/argo-smart-routing/api.md",
+        "references/argo-smart-routing/configuration.md",
+        "references/argo-smart-routing/gotchas.md",
+        "references/argo-smart-routing/patterns.md",
+        "references/artifacts/README.md",
+        "references/artifacts/api.md",
+        "references/artifacts/configuration.md",
+        "references/bindings/README.md",
+        "references/bindings/api.md",
+        "references/bindings/configuration.md",
+        "references/bindings/gotchas.md",
+        "references/bindings/patterns.md",
+        "references/bot-management/README.md",
+        "references/bot-management/api.md",
+        "references/bot-management/configuration.md",
+        "references/bot-management/gotchas.md",
+        "references/bot-management/patterns.md",
+        "references/browser-rendering/README.md",
+        "references/browser-rendering/api.md",
+        "references/browser-rendering/configuration.md",
+        "references/browser-rendering/gotchas.md",
+        "references/browser-rendering/patterns.md",
+        "references/c3/README.md",
+        "references/c3/api.md",
+        "references/c3/configuration.md",
+        "references/c3/gotchas.md",
+        "references/c3/patterns.md",
+        "references/cache-reserve/README.md",
+        "references/cache-reserve/api.md",
+        "references/cache-reserve/configuration.md",
+        "references/cache-reserve/gotchas.md",
+        "references/cache-reserve/patterns.md",
+        "references/containers/README.md",
+        "references/containers/api.md",
+        "references/containers/configuration.md",
+        "references/containers/gotchas.md",
+        "references/containers/patterns.md",
+        "references/cron-triggers/README.md",
+        "references/cron-triggers/api.md",
+        "references/cron-triggers/configuration.md",
+        "references/cron-triggers/gotchas.md",
+        "references/cron-triggers/patterns.md",
+        "references/d1/README.md",
+        "references/d1/api.md",
+        "references/d1/configuration.md",
+        "references/d1/gotchas.md",
+        "references/d1/patterns.md",
+        "references/ddos/README.md",
+        "references/ddos/api.md",
+        "references/ddos/configuration.md",
+        "references/ddos/gotchas.md",
+        "references/ddos/patterns.md",
+        "references/do-storage/README.md",
+        "references/do-storage/api.md",
+        "references/do-storage/configuration.md",
+        "references/do-storage/gotchas.md",
+        "references/do-storage/patterns.md",
+        "references/do-storage/testing.md",
+        "references/durable-objects/README.md",
+        "references/durable-objects/api.md",
+        "references/durable-objects/configuration.md",
+        "references/durable-objects/gotchas.md",
+        "references/durable-objects/patterns.md",
+        "references/email-routing/README.md",
+        "references/email-routing/api.md",
+        "references/email-routing/configuration.md",
+        "references/email-routing/gotchas.md",
+        "references/email-routing/patterns.md",
+        "references/email-workers/README.md",
+        "references/email-workers/api.md",
+        "references/email-workers/configuration.md",
+        "references/email-workers/gotchas.md",
+        "references/email-workers/patterns.md",
+        "references/flagship/README.md",
+        "references/flagship/api.md",
+        "references/flagship/configuration.md",
+        "references/flagship/gotchas.md",
+        "references/flagship/patterns.md",
+        "references/graphql-api/README.md",
+        "references/graphql-api/api.md",
+        "references/graphql-api/configuration.md",
+        "references/graphql-api/gotchas.md",
+        "references/graphql-api/patterns.md",
+        "references/hyperdrive/README.md",
+        "references/hyperdrive/api.md",
+        "references/hyperdrive/configuration.md",
+        "references/hyperdrive/gotchas.md",
+        "references/hyperdrive/patterns.md",
+        "references/images/README.md",
+        "references/images/api.md",
+        "references/images/configuration.md",
+        "references/images/gotchas.md",
+        "references/images/patterns.md",
+        "references/kv/README.md",
+        "references/kv/api.md",
+        "references/kv/configuration.md",
+        "references/kv/gotchas.md",
+        "references/kv/patterns.md",
+        "references/miniflare/README.md",
+        "references/miniflare/api.md",
+        "references/miniflare/configuration.md",
+        "references/miniflare/gotchas.md",
+        "references/miniflare/patterns.md",
+        "references/network-interconnect/README.md",
+        "references/network-interconnect/api.md",
+        "references/network-interconnect/configuration.md",
+        "references/network-interconnect/gotchas.md",
+        "references/network-interconnect/patterns.md",
+        "references/observability/README.md",
+        "references/observability/api.md",
+        "references/observability/configuration.md",
+        "references/observability/gotchas.md",
+        "references/observability/patterns.md",
+        "references/pages-functions/README.md",
+        "references/pages-functions/api.md",
+        "references/pages-functions/configuration.md",
+        "references/pages-functions/gotchas.md",
+        "references/pages-functions/patterns.md",
+        "references/pages/README.md",
+        "references/pages/api.md",
+        "references/pages/configuration.md",
+        "references/pages/gotchas.md",
+        "references/pages/patterns.md",
+        "references/pipelines/README.md",
+        "references/pipelines/api.md",
+        "references/pipelines/configuration.md",
+        "references/pipelines/gotchas.md",
+        "references/pipelines/patterns.md",
+        "references/pulumi/README.md",
+        "references/pulumi/api.md",
+        "references/pulumi/configuration.md",
+        "references/pulumi/gotchas.md",
+        "references/pulumi/patterns.md",
+        "references/queues/README.md",
+        "references/queues/api.md",
+        "references/queues/configuration.md",
+        "references/queues/gotchas.md",
+        "references/queues/patterns.md",
+        "references/r2-data-catalog/README.md",
+        "references/r2-data-catalog/api.md",
+        "references/r2-data-catalog/configuration.md",
+        "references/r2-data-catalog/gotchas.md",
+        "references/r2-data-catalog/patterns.md",
+        "references/r2-sql/README.md",
+        "references/r2-sql/api.md",
+        "references/r2-sql/configuration.md",
+        "references/r2-sql/gotchas.md",
+        "references/r2-sql/patterns.md",
+        "references/r2/README.md",
+        "references/r2/api.md",
+        "references/r2/configuration.md",
+        "references/r2/gotchas.md",
+        "references/r2/patterns.md",
+        "references/realtime-sfu/README.md",
+        "references/realtime-sfu/api.md",
+        "references/realtime-sfu/configuration.md",
+        "references/realtime-sfu/gotchas.md",
+        "references/realtime-sfu/patterns.md",
+        "references/realtimekit/README.md",
+        "references/realtimekit/api.md",
+        "references/realtimekit/configuration.md",
+        "references/realtimekit/gotchas.md",
+        "references/realtimekit/patterns.md",
+        "references/sandbox/README.md",
+        "references/sandbox/api.md",
+        "references/sandbox/configuration.md",
+        "references/sandbox/gotchas.md",
+        "references/sandbox/patterns.md",
+        "references/secrets-store/README.md",
+        "references/secrets-store/api.md",
+        "references/secrets-store/configuration.md",
+        "references/secrets-store/gotchas.md",
+        "references/secrets-store/patterns.md",
+        "references/smart-placement/README.md",
+        "references/smart-placement/api.md",
+        "references/smart-placement/configuration.md",
+        "references/smart-placement/gotchas.md",
+        "references/smart-placement/patterns.md",
+        "references/snippets/README.md",
+        "references/snippets/api.md",
+        "references/snippets/configuration.md",
+        "references/snippets/gotchas.md",
+        "references/snippets/patterns.md",
+        "references/spectrum/README.md",
+        "references/spectrum/api.md",
+        "references/spectrum/configuration.md",
+        "references/spectrum/gotchas.md",
+        "references/spectrum/patterns.md",
+        "references/static-assets/README.md",
+        "references/static-assets/api.md",
+        "references/static-assets/configuration.md",
+        "references/static-assets/gotchas.md",
+        "references/static-assets/patterns.md",
+        "references/stream/README.md",
+        "references/stream/api-live.md",
+        "references/stream/api.md",
+        "references/stream/configuration.md",
+        "references/stream/gotchas.md",
+        "references/stream/patterns.md",
+        "references/tail-workers/README.md",
+        "references/tail-workers/api.md",
+        "references/tail-workers/configuration.md",
+        "references/tail-workers/gotchas.md",
+        "references/tail-workers/patterns.md",
+        "references/terraform/README.md",
+        "references/terraform/api.md",
+        "references/terraform/configuration.md",
+        "references/terraform/gotchas.md",
+        "references/terraform/patterns.md",
+        "references/tunnel/README.md",
+        "references/tunnel/api.md",
+        "references/tunnel/configuration.md",
+        "references/tunnel/gotchas.md",
+        "references/tunnel/networking.md",
+        "references/tunnel/patterns.md",
+        "references/turn/README.md",
+        "references/turn/api.md",
+        "references/turn/configuration.md",
+        "references/turn/gotchas.md",
+        "references/turn/patterns.md",
+        "references/turnstile/README.md",
+        "references/turnstile/api.md",
+        "references/turnstile/configuration.md",
+        "references/turnstile/gotchas.md",
+        "references/turnstile/patterns.md",
+        "references/vectorize/README.md",
+        "references/vectorize/api.md",
+        "references/vectorize/configuration.md",
+        "references/vectorize/gotchas.md",
+        "references/vectorize/patterns.md",
+        "references/waf/README.md",
+        "references/waf/api.md",
+        "references/waf/configuration.md",
+        "references/waf/gotchas.md",
+        "references/waf/patterns.md",
+        "references/web-analytics/README.md",
+        "references/web-analytics/configuration.md",
+        "references/web-analytics/gotchas.md",
+        "references/web-analytics/integration.md",
+        "references/web-analytics/patterns.md",
+        "references/workerd/README.md",
+        "references/workerd/api.md",
+        "references/workerd/configuration.md",
+        "references/workerd/gotchas.md",
+        "references/workerd/patterns.md",
+        "references/workers-ai/README.md",
+        "references/workers-ai/api.md",
+        "references/workers-ai/configuration.md",
+        "references/workers-ai/gotchas.md",
+        "references/workers-ai/patterns.md",
+        "references/workers-for-platforms/README.md",
+        "references/workers-for-platforms/api.md",
+        "references/workers-for-platforms/configuration.md",
+        "references/workers-for-platforms/gotchas.md",
+        "references/workers-for-platforms/patterns.md",
+        "references/workers-playground/README.md",
+        "references/workers-playground/api.md",
+        "references/workers-playground/configuration.md",
+        "references/workers-playground/gotchas.md",
+        "references/workers-playground/patterns.md",
+        "references/workers-vpc/README.md",
+        "references/workers-vpc/api.md",
+        "references/workers-vpc/configuration.md",
+        "references/workers-vpc/gotchas.md",
+        "references/workers-vpc/patterns.md",
+        "references/workers/README.md",
+        "references/workers/api.md",
+        "references/workers/configuration.md",
+        "references/workers/frameworks.md",
+        "references/workers/gotchas.md",
+        "references/workers/patterns.md",
+        "references/workflows/README.md",
+        "references/workflows/api.md",
+        "references/workflows/configuration.md",
+        "references/workflows/gotchas.md",
+        "references/workflows/patterns.md",
+        "references/wrangler/README.md",
+        "references/wrangler/api.md",
+        "references/wrangler/configuration.md",
+        "references/wrangler/gotchas.md",
+        "references/wrangler/patterns.md",
+        "references/zaraz/IMPLEMENTATION_SUMMARY.md",
+        "references/zaraz/README.md",
+        "references/zaraz/api.md",
+        "references/zaraz/configuration.md",
+        "references/zaraz/gotchas.md",
+        "references/zaraz/patterns.md"
+      ]
+    },
+    {
+      "name": "cloudflare-email-service",
+      "version": "1",
+      "description": "Send and receive transactional emails with Cloudflare Email Service (Email Sending + Email Routing). Use when building email sending (Workers binding or REST API), email routing, Agents SDK email handling, or integrating email into any app \u2014 Workers, Node.js, Python, Go, etc. Also use for email deliverability, SPF/DKIM/DMARC, wrangler email setup, MCP email tools, or when a coding agent needs to send emails. Even for simple requests like \"add email to my Worker\" \u2014 this skill has critical config details.",
+      "files": [
+        "SKILL.md",
+        "references/cli-and-mcp.md",
+        "references/deliverability.md",
+        "references/rest-api.md",
+        "references/routing.md",
+        "references/sending.md"
+      ]
+    },
+    {
+      "name": "cloudflare-one",
+      "version": "1",
+      "description": "Guides Cloudflare One Zero Trust and SASE work across Access, Gateway, WARP, Tunnel, Cloudflare WAN, DLP, CASB, device posture, and identity. Use when designing, configuring, troubleshooting, or reviewing Cloudflare One deployments. Retrieval-first: use current Cloudflare docs/API schemas instead of embedded product docs.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "cloudflare-one-migrations",
+      "version": "1",
+      "description": "Plans migrations from Zscaler ZIA/ZPA, Palo Alto, legacy VPN, SWG, or SASE stacks to Cloudflare One. Use for migration assessments, policy mapping, rollout plans, and parity/gap analysis.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "datalineage-bigquery-asset-impact-analysis",
+      "version": "1",
+      "description": "Analyzes the downstream impact (blast radius) when a BigQuery table or view is broken, stale, or modified. Identifies all downstream tables, dashboards, and processes that will be affected. Use when: - Performing a blast radius or impact analysis for a BigQuery table or view. - Assessing the consequences of modifying, deleting, or pausing updates to a BigQuery asset. - Identifying downstream dependencies (tables, dashboards, processes) of a BigQuery asset. Don't use for: - General BigQuery querying or data analysis (use BigQuery-related tools instead). - Non-BigQuery assets (e.g., Cloud Storage files) unless they are part of the BigQuery lineage. - Creating or modifying lineage links directly.",
+      "files": [
+        "SKILL.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "datalineage-summary",
+      "version": "1",
+      "description": "Summarizes Google Cloud Data Lineage graphs to help users debug data quality issues and understand data provenance for BQ/GCS. Use when summarizing upstream and downstream data flows, and presenting complex lineage data as an intuitive Markdown report. Don't use for generic BigQuery queries, editing lineage relationships, or downstream deprecation. Don't use for downstream blast-radius impact analysis (use datalineage-bigquery-asset-impact-analysis skill instead).",
+      "files": [
+        "SKILL.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "detection-engineering-coverage-evaluation",
+      "version": "1",
+      "description": "Automates the end-to-end detection engineering workflow in Google SecOps using MCP tools. Use when fetching threat intelligence from blogs, generating Threat Detection Opportunities (TDOs), simulating attacker behavior with synthetic UDM events, evaluating rule coverage, generating new YARA-L 2.0 rules to close coverage gaps, and with user approval, deploy them to SecOps. Don't use when asked to perform threat hunting actions, and SOC investigative actions.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "durable-objects",
+      "version": "1",
+      "description": "Create and review Cloudflare Durable Objects. Use when building stateful coordination (chat rooms, multiplayer games, booking systems), implementing RPC methods, SQLite storage, alarms, WebSockets, or reviewing DO code for best practices. Covers Workers integration, wrangler config, and testing with Vitest. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md",
+        "references/rules.md",
+        "references/testing.md",
+        "references/workers.md"
+      ]
+    },
+    {
+      "name": "firebase-basics",
+      "version": "1",
+      "description": "Use this skill whenever you are working on a project that uses Firebase products or services, especially for mobile or web apps.",
+      "files": [
+        "SKILL.md",
+        "references/additional-skills.md",
+        "references/cli-usage.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/iam-security.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "gcloud",
+      "version": "1",
+      "description": "Interacts with Google Cloud services using the gcloud CLI safely and efficiently. Covers command validation, data reduction, safety guardrails with a denylist, and workflows for discovery and investigation. You MUST read this skill before invoking any gcloud command. Use when managing cloud resources, querying configurations, or troubleshooting issues via gcloud. Don't use when writing or debugging Google Cloud client library code or raw REST/gRPC API interactions.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gemini-agents-api",
+      "version": "1",
+      "description": "Manages custom Agent resources on Gemini Enterprise Agent Platform. Use when the user wants to programmatically create, configure, list, update, or delete stateful, server-managed Agent resources (including mounting files, skills, and tools) before executing conversations.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gemini-api",
+      "version": "1",
+      "description": "Use when the user asks about using Gemini in an enterprise environment or explicitly mentions Vertex AI, Google Cloud, or Agent Platform. Guides the usage of the Gemini API on Agent Platform with the Google Gen AI SDK. Covers SDK usage (Python, JS/TS, Go, Java, C#), capabilities like multimodal inputs, tools, media generation, caching, batch prediction, and Live API.",
+      "files": [
+        "SKILL.md",
+        "references/advanced_features.md",
+        "references/bounding_box.md",
+        "references/embeddings.md",
+        "references/live_api.md",
+        "references/media_generation.md",
+        "references/model_tuning.md",
+        "references/safety.md",
+        "references/structured_and_tools.md",
+        "references/text_and_multimodal.md"
+      ]
+    },
+    {
+      "name": "gemini-interactions-api",
+      "version": "1",
+      "description": "Guides the usage of Gemini Interactions API on Gemini Enterprise Agent Platform. Use when the user wants to use the stateful, server-managed Interactions API for multi-turn conversations, background execution, streaming, structured output, and function calling on the Agent Platform.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gemini-live-api",
+      "version": "1",
+      "description": "Generates a Gemini LiveAPI client service class in the user's chosen programming language. Use when the user wants to build, scaffold, or integrate a client that connects to the Gemini Enterprise LiveAPI websocket endpoint, handles session setup/resumption, bearer token refresh, and sending/receiving `ClientMessage`/`ServerMessage` protos. Don't use for general (non-live, non-bidirectional) Gemini API usage such as one-shot `generateContent`, embeddings, image/video generation, or fine-tuning \u2014 use the `gemini-api` skill for those.",
+      "files": [
+        "SKILL.md",
+        "references/client_server_messages.md",
+        "references/client_server_messages.proto",
+        "references/session_manager.md"
+      ]
+    },
+    {
+      "name": "gke-app-onboarding",
+      "version": "1",
+      "description": "Manages GKE application onboarding, covering containerization, deployment manifests, and migration. Use when onboarding or deploying an application to GKE for the first time, or containerizing an app for GKE. Don't use for general GKE cluster administration or upgrades (use gke-basics or gke-upgrades instead).",
+      "files": [
+        "SKILL.md",
+        "assets/Dockerfile",
+        "assets/deployment.yaml",
+        "assets/index.js",
+        "assets/package.json"
+      ]
+    },
+    {
+      "name": "gke-backup-dr",
+      "version": "1",
+      "description": "Configures GKE Backup Plans and restore workflows. Use for backup policies, disaster recovery, or GKE cluster restores. Don't use for database backups.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-basics",
+      "version": "1",
+      "description": "Core GKE cluster discovery and hub. Use to route to specialized GKE skills. Do not use for specialized tasks (networking, security, etc.) directly.",
+      "files": [
+        "SKILL.md",
+        "references/cli-reference.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/iac-usage.md",
+        "references/mcp-usage.md"
+      ]
+    },
+    {
+      "name": "gke-batch-hpc",
+      "version": "1",
+      "description": "Runs batch and HPC workloads on GKE, utilizing job queues and parallel processing. Use when running GKE batch jobs, configuring GKE HPC, or setting up GKE job queues. Don't use for standard web application deployments (use gke-app-onboarding instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-cluster-autoscaler",
+      "version": "1",
+      "description": "Trigger on mention of GKE cluster autoscaler,  node autoscaling, node pool auto-creation / node auto-provisioning. Provides guidance on enabling and optimizing cluster autoscaler, best practices, and troubleshooting issues such as nodes not scaling up or down, zonal stockouts, or capacity buffers. Do not use for ComputeClass-specific YAML generation or priority configuration (defer to gke-compute-classes skill).",
+      "files": [
+        "SKILL.md",
+        "assets/capacity-buffer-serving.yaml",
+        "assets/find-scale-down-blockers.sh",
+        "assets/log-autoscaler-events.sh",
+        "references/ca-capacity-buffers.md",
+        "references/ca-consolidation-tuning.md",
+        "references/ca-debug.md",
+        "references/ca-optimization.md",
+        "references/ca-provisioning.md"
+      ]
+    },
+    {
+      "name": "gke-cluster-creation",
+      "version": "1",
+      "description": "Plans and executes GKE cluster creation, provisioning, and production readiness audits using pre-defined templates (Autopilot, Standard Regional, GPU/AI Inference, AI Hypercompute). Use when creating GKE clusters, provisioning GKE environments, selecting cluster modes, or auditing GKE clusters. Don't use for application onboarding or deployment configuration (use gke-app-onboarding instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-compute-classes",
+      "version": "1",
+      "description": "Configures, optimizes, and troubleshoots GKE ComputeClasses. Use when configuring Spot VMs with on-demand fallback, targeting specific accelerators (GPUs/TPUs) or machine families, restricting ComputeClass access, or debugging pending pods related to node pool auto-creation. Do not use for cluster-level Node Auto Provisioning configuration or general GKE cluster creation.",
+      "files": [
+        "SKILL.md",
+        "assets/balanced-reserved-zonal-compute-class.yaml",
+        "assets/computeclass-rbac-editor.yaml",
+        "assets/dynamic-rwo-storageclass.yaml",
+        "assets/equal-priority-tiebreak-compute-class.yaml",
+        "assets/genai-inference-g4-compute-class.yaml",
+        "assets/kafka-broker-compute-class.yaml",
+        "assets/log-autoscaler-events.sh",
+        "assets/manual-pool-tiebreak-compute-class.yaml",
+        "assets/postgres-primary-compute-class.yaml",
+        "assets/redis-compute-class.yaml",
+        "assets/restrict-computeclass-usage-vap.yaml",
+        "assets/shared-l4-inference-compute-class.yaml",
+        "assets/spark-proximal-compute-class.yaml",
+        "assets/spot-cost-tiebreak-compute-class.yaml",
+        "assets/system-pool-compute-class.yaml",
+        "assets/tpu-v5e-training-compute-class.yaml",
+        "references/compute-class-autopilot-mode.md",
+        "references/compute-class-cost-optimization.md",
+        "references/compute-class-crd-fields.md",
+        "references/compute-class-debug.md",
+        "references/compute-class-gotchas-and-cuds.md",
+        "references/compute-class-governance.md",
+        "references/compute-class-karpenter-migration.md",
+        "references/compute-class-lifecycle.md",
+        "references/compute-class-prioritization.md",
+        "references/compute-class-provisioning-methods.md"
+      ]
+    },
+    {
+      "name": "gke-cost",
+      "version": "1",
+      "description": "Optimizes GKE costs, rightsizes workloads, and configures Spot VMs and CUDs. Use when optimizing GKE costs, rightsizing GKE workloads, or configuring GKE Spot VMs. Don't use for general compute class provisioning or GPU Selection (use gke-compute-classes instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-golden-path",
+      "version": "1",
+      "description": "Provides GKE golden path configuration defaults, production readiness checklists, and cluster default patterns. Use when designing GKE clusters, verifying GKE production readiness, or checking configurations against GKE defaults. Don't use for setting up node autoscaling specifically (use gke-scaling instead).",
+      "files": [
+        "SKILL.md",
+        "assets/golden-path-autopilot.yaml"
+      ]
+    },
+    {
+      "name": "gke-inference",
+      "version": "1",
+      "description": "Deploys and optimizes AI/ML inference workloads on GKE, using GPUs, TPUs, and model servers. Use when deploying GKE inference servers, configuring GKE GPU resources for inference, or deploying LLMs on GKE. Don't use for generic batch jobs or HPC task queues (use gke-batch-hpc instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-multitenancy",
+      "version": "1",
+      "description": "Plans and configures multi-tenancy on GKE. Covers namespace isolation, RBAC planning for teams, resource quotas, LimitRanges, network isolation, and cost allocation. Use when designing GKE multi-tenancy, configuring GKE namespaces, setting up resource quotas, or isolating GKE teams. Don't use for single-tenant cluster configuration or general deployment instructions (use gke-basics or gke-app-onboarding instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-networking",
+      "version": "1",
+      "description": "Plans, configures, and manages GKE networking. Covers private clusters, VPC- native configurations, Gateway API, DNS, ingress/egress, Dataplane V2, and IP planning. Use when designing GKE networking layouts, configuring private clusters, setting up Gateway API, planning GKE IP ranges, or configuring GKE ingress/egress. Don't use for basic application routing that does not require dedicated network configuration.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-observability",
+      "version": "1",
+      "description": "Configures GKE observability, including Cloud Logging, Cloud Monitoring, and managed Prometheus. Use when configuring GKE monitoring, setting up GKE logging, or configuring Prometheus metrics collection. Don't use to configure local application logging frameworks or external APMs outside GKE.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-reliability",
+      "version": "1",
+      "description": "Improves GKE workload reliability, using PDBs, health probes, and topology spread constraints. Use when configuring GKE workload reliability, setting up PDBs, or configuring GKE health probes (liveness, readiness, startup). Don't use for disaster recovery setup or full cluster backups (use gke-backup-dr instead).",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-security",
+      "version": "1",
+      "description": "Plans, configures, and hardens Google Kubernetes Engine (GKE) security. Covers Workload Identity Federation, Secret Manager integration, RBAC hardening, Binary Authorization, Network Policies (Dataplane V2), Pod Security Standards, and IAM roles. Use when securing GKE clusters, setting up Workload Identity, hardening RBAC configurations, or configuring GKE secrets. Don't use for general network routing configuration (use gke-networking instead).",
+      "files": [
+        "SKILL.md",
+        "assets/default-deny-netpol.yaml",
+        "assets/workload-identity-pod.yaml"
+      ]
+    },
+    {
+      "name": "gke-storage",
+      "version": "1",
+      "description": "Manages GKE storage, including PVCs, PersistentVolumes, Filestore, and GCS FUSE. Use when configuring GKE storage, creating PVCs, or setting up GCS FUSE on GKE. Don't use for database administration or replication strategies outside volume provisioning context.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "gke-upgrades",
+      "version": "1",
+      "description": "Plans, executes, and validates Google Kubernetes Engine (GKE) cluster upgrades and maintenance operations for both Standard and Autopilot clusters. Produces upgrade plans, pre/post-upgrade checklists, maintenance runbooks with gcloud commands, release channel strategy, and troubleshooting guides. Handles node pool upgrade strategies (surge, blue-green), version compatibility, PDB management, and workload-specific concerns (stateful, GPU, operators). Use this skill whenever the user mentions GKE upgrades, Kubernetes version bumps, node pool maintenance, GKE patching, cluster version management, release channel selection, maintenance windows, surge upgrades, stuck upgrades, or any GKE lifecycle management task \u2014 even casual mentions like \"we need to upgrade our clusters\" or \"plan our next GKE maintenance\" or \"our upgrade is stuck.\" Don't use for GKE cluster creation, application onboarding, general networking/routing setup, or security policy configurations (use gke-basics or relevant GKE skills instead).",
+      "files": [
+        "SKILL.md",
+        "references/checklists.md",
+        "references/runbook-template.md",
+        "references/troubleshooting.md"
+      ]
+    },
+    {
+      "name": "gke-workload-scaling",
+      "version": "1",
+      "description": "Manages scaling for GKE workloads using HPA and VPA. Use when configuring Horizontal Pod Autoscaler (HPA), configuring Vertical Pod Autoscaler (VPA), or applying best practices for GKE workload autoscaling. Do not use for cluster-level autoscaling (Cluster Autoscaler), static cluster sizing, or configuring node-level machine styles directly.",
+      "files": [
+        "SKILL.md",
+        "assets/hpa-example.yaml",
+        "assets/vpa-example.yaml"
+      ]
+    },
+    {
+      "name": "google-agents-cli-onboarding",
+      "version": "1",
+      "description": "Onboarding entrypoint for agents-cli in Agent Platform. It should be used when the user wants to \"create a new agent\", \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"evaluate an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-global-frontend-configuration",
+      "version": "1",
+      "description": "|",
+      "files": [
+        "SKILL.md",
+        "references/drift-detection.md",
+        "references/gcloud-generation.md",
+        "references/managed-deployment.md",
+        "references/resource-discovery.md",
+        "references/terraform-generation.md",
+        "references/terraform-module.md"
+      ]
+    },
+    {
+      "name": "google-cloud-networking-observability",
+      "version": "1",
+      "description": "Investigates Google Cloud networking issues by analyzing logs, metrics, and diagnostics. Use when investigating VPC Flow Logs (including cost estimation), NAT, firewall, or threat logs, querying latency and throughput metrics, or running Connectivity Tests for path diagnostics. Don't use for generic VM management or non-observability tasks.",
+      "files": [
+        "SKILL.md",
+        "references/cloud-nat-analysis.md",
+        "references/connectivity-tests.md",
+        "references/firewall-analysis.md",
+        "references/mcp-usage.md",
+        "references/metrics-analysis.md",
+        "references/threat-analysis.md",
+        "references/vpc-flow-analysis.md",
+        "references/vpc-flow-logs-cost-estimation.md"
+      ]
+    },
+    {
+      "name": "google-cloud-recipe-auth",
+      "version": "1",
+      "description": "Provides expert guidance on authenticating and authorizing to Google Cloud services and APIs, covering human users, service identities, Application Default Credentials (ADC), and best practices for secure access.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-recipe-foundation-builder",
+      "version": "1",
+      "description": "Deploys a baseline landing zone foundation for a Google Cloud Organization, establishing security guardrails using Organization Policies, resource hierarchy folders and projects, billing association, and centralized logging and monitoring. Deploys Google Cloud's recommended security controls and architecture. Use when setting up a new Google Cloud Organization or establishing a secure, enterprise-grade landing zone foundation.",
+      "files": [
+        "SKILL.md",
+        "references/admin-iam.md",
+        "references/logging-monitoring.md",
+        "references/org-policies.md"
+      ]
+    },
+    {
+      "name": "google-cloud-recipe-onboarding",
+      "version": "1",
+      "description": "Guides a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource. Use when a new developer wants to initialize their first Google Cloud project, configure billing, and verify deployment. Don't use for enterprise organization setup (use Google Cloud Setup guided flow for that instead). Don't use for complex multi-project architectures.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-agentic-ai-bidirectional-streaming",
+      "version": "1",
+      "description": "Guides agents to interactively discover customer requirements for live, bidirectional multi-agent AI systems that process continuous streams of multimodal data for real-time technical guidance and safety monitoring. Generates a custom Google Cloud solution that uses opinionated best practices and architecture guidance. Use when users need agentic assistance to design and create a multi-product solution in the cloud for live bidirectional multimodal streaming workloads. Don't use for simple text-based chat applications or workloads without real-time streaming requirements.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/design-recommendations.md",
+        "references/product-mapping.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-agentic-ai-borderless-data-lakehouse",
+      "version": "1",
+      "description": "Guides agents to discover requirements and design a governed, secure borderless open data lakehouse with agentic AI integration. Use when designing a multi-product architecture that connects data silos to AI agents, joining data across clouds, or running federated queries across Google Cloud and external data sources, including on-premises or other cloud providers. Don't use for simple single-cloud data warehouses or non-AI workloads.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/design_recommendations.md",
+        "references/product_mapping.md",
+        "references/product_renaming.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-agentic-ai-data-science-workflow",
+      "version": "1",
+      "description": "Designs a tailored multi-product agentic data science architecture on Google Cloud that incorporates opinionated best practices. Use when architecting multi-product solutions for agent-based data analytics or ML workloads. Don't use for simple queries, non-agentic pipelines, general cloud reviews, or writing agent code.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/design-recommendations.md",
+        "references/product-mapping.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-agentic-analytics-spark-knowledge-catalog",
+      "version": "1",
+      "description": "Discovers requirements and generates guidance to design and deploy a governed, secure agentic-analytics solution for data that's distributed across Google Cloud, other cloud providers, or on-premises. Data that's outside Google Cloud (such as data from Databricks, Snowflake, Salesforce, SAP, or Oracle systems) is accessed through federation mechanisms such as Apache Iceberg, other \"zero-copy ETL\" methods, or remote query push-down. Use this skill when designing an architecture for efficient analytics across large volumes of structured and unstructured data that's located in multiple systems and environments, including other cloud providers and on-premises.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/design-recommendations.md",
+        "references/knowledge-catalog-documentation.md",
+        "references/product-selection-guidance.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-architecture",
+      "version": "1",
+      "description": "Interactively discovers requirements for a specific cloud workload and generates design recommendations and architectural guidance to build a multi-product solution in Google Cloud. Use this skill for holistic, end-to-end design recommendations and architectural guidance for complex, multi-product workloads on Google Cloud for specific use cases. Don't use this skill when other specialized skills (e.g., product-specific or google-cloud-recipe-*) directly address the user's workload or use case.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/architecture-guides.md",
+        "references/best-practices-guides.md",
+        "references/decision-making-guides.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-build-deploy-agents",
+      "version": "1",
+      "description": "Designs, builds, and deploys AI agents or multi-agent systems on Google Cloud. Provides an interactive workflow to gather requirements, recommend a tailored architecture, and generate deployment instructions. Use when designing or implementing agentic systems on Google Cloud. Don't use for general Google Cloud solution architecture (use google-cloud-solution-architecture instead) or for narrow tasks targeting a single product without agent context.",
+      "files": [
+        "SKILL.md",
+        "assets/implementation-template.md",
+        "assets/solution-template.md",
+        "assets/validation-template.md",
+        "references/design-principles.md",
+        "references/product-mappings.md",
+        "references/related-guidance.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-n-tier-serverless-web-app",
+      "version": "1",
+      "description": "Guides agents to interactively discover customer requirements for a Secure n-tier serverless web application and generate a tailored cloud multi-product solution that incorporates opinionated best practices and  architecture guidance. Use when users need agentic assistance with designing  and creating a multi-product solution in the cloud for Secure n-tier serverless web application. Don't use when designing VM or GKE-based architectures or when not using Google Cloud.",
+      "files": [
+        "SKILL.md",
+        "assets/main.tf",
+        "assets/output-template.md",
+        "references/non-negotiable-architectural-rules.md",
+        "references/related-guidance.md"
+      ]
+    },
+    {
+      "name": "google-cloud-solution-rag-enterprise-search-gke-sqldb",
+      "version": "1",
+      "description": "Discovers requirements, and generates architectural, design, and deployment guidance for a retrieval-augmented generation (RAG)-capable enterprise search system in Google Cloud. Use when users need a vector-enabled SQL database as the store and index for the embedding vectors, an open model and open-source inferencing framework, and Kubernetes containers to host all the application components. DON'T use this skill for fully-managed RAG, or SaaS search services, or when a non-SQL vector database is required.",
+      "files": [
+        "SKILL.md",
+        "assets/output-template.md",
+        "references/design-recommendations.md",
+        "references/product-selection-recommendations.md",
+        "references/related-documentation.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-cost-optimization",
+      "version": "1",
+      "description": "Generates cost optimization guidance for Google Cloud workloads based on the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify cost requirements and constraints, and provide actionable recommendations for build, deploy, and manage the workload cost-efficiently in Google Cloud.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-operational-excellence",
+      "version": "1",
+      "description": "Generates operations-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Operational Excellence pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify operational requirements, and provide actionable recommendations for deployment, monitoring, and incident management.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-performance-optimization",
+      "version": "1",
+      "description": "Generates performance-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Performance Optimization pillar of the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify performance requirements, and provide actionable recommendations for resource allocation, modular design, and elasticity.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-reliability",
+      "version": "1",
+      "description": "Generates reliability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework. Use this skill to evaluate a workload, identify reliability requirements, and provide actionable recommendations for build, deploy, and manage the workload reliably in Google Cloud.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-security",
+      "version": "1",
+      "description": "Generates security-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify security requirements, and provide actionable recommendations for IAM, network security, data protection, and operational security.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "google-cloud-waf-sustainability",
+      "version": "1",
+      "description": "Generates sustainability-focused guidance for Google Cloud workloads based on the design principles and recommendations in the Google Cloud Well-Architected Framework (WAF). Use this skill to evaluate a workload, identify environmental impact requirements, and provide actionable recommendations to build, deploy, and manage the workload sustainably in Google Cloud.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
       "name": "network-infra-review",
       "version": "1",
+      "description": "Review production infrastructure and network-oriented changes across Terraform, AWS, GCP, Kubernetes/GKE, BGP, IPv4/IPv6, Java and Go. Focus on correctness, failure modes, blast radius, routing, dual-stack behavior, MTU, security, observability and operability rather than style nitpicks.",
       "files": [
+        "SKILL.md",
         "network-infra-review.md"
+      ]
+    },
+    {
+      "name": "sandbox-sdk",
+      "version": "1",
+      "description": "Build sandboxed applications for secure code execution. Load when building AI code execution, code interpreters, CI/CD systems, interactive dev environments, or executing untrusted code. Covers Sandbox SDK lifecycle, commands, files, code interpreter, and preview URLs. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md",
+        "references/api-quick-ref.md",
+        "references/examples.md"
+      ]
+    },
+    {
+      "name": "turnstile-spin",
+      "version": "1",
+      "description": "Set up Cloudflare Turnstile end-to-end in a project. Scan the codebase, create the widget via the Cloudflare API, embed it where user requests need bot verification (form submissions, SPA actions, API endpoints, download links, comment or vote submissions, etc.), wire canonical server-side siteverify in the customer's existing backend, validate, and persist the skill. Load this when a user asks to add Turnstile, set up CAPTCHA, protect a form or endpoint from bots, or fix a Turnstile integration. Mirrors developers.cloudflare.com/turnstile/spin.",
+      "files": [
+        "README.md",
+        "SKILL.md",
+        "references/astro.md",
+        "references/hugo.md",
+        "references/nextjs-app.md",
+        "references/nextjs-pages.md",
+        "references/sveltekit.md",
+        "references/vanilla-html.md",
+        "scripts/auth-probe.sh",
+        "scripts/persist-skill.sh",
+        "scripts/validate.sh",
+        "scripts/widget-create.sh",
+        "tests/validation.md"
+      ]
+    },
+    {
+      "name": "web-perf",
+      "version": "1",
+      "description": "Analyzes web performance using Chrome DevTools MCP. Measures Core Web Vitals (LCP, INP, CLS) and supplementary metrics (FCP, TBT, Speed Index), identifies render-blocking resources, network dependency chains, layout shifts, caching issues, and accessibility gaps. Use when asked to audit, profile, debug, or optimize page load performance, Lighthouse scores, or site speed. Biases towards retrieval from current documentation over pre-trained knowledge.",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "workers-best-practices",
+      "version": "1",
+      "description": "Reviews and authors Cloudflare Workers code against production best practices. Load when writing new Workers, reviewing Worker code, configuring wrangler.jsonc, or checking for common Workers anti-patterns (streaming, floating promises, global state, secrets, bindings, observability). Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md",
+        "references/review.md",
+        "references/rules.md"
+      ]
+    },
+    {
+      "name": "workload-manager-basics",
+      "version": "1",
+      "description": "Use this skill to manage Google Cloud Workload Manager evaluations, rules, scanned resources, and validation results by using public client libraries and the REST API. Use when you need to inspect workload best-practice rules, create and run evaluations for Google Cloud general best practices, SAP, SQL Server, or custom organizational rules, review violations, export results to BigQuery, or automate Workload Manager through client libraries because no service-specific public CLI or MCP server is available. Don't use for general Google Compute Engine instance management, VPC configuration, or standard IAM auditing.",
+      "files": [
+        "SKILL.md",
+        "references/client-library-usage.md",
+        "references/core-concepts.md",
+        "references/general-best-practices.md",
+        "references/iam-security.md",
+        "references/public-cli-status.md",
+        "references/public-mcp-status.md",
+        "references/rest-usage.md",
+        "references/setup-prerequisites.md"
+      ]
+    },
+    {
+      "name": "wrangler",
+      "version": "1",
+      "description": "Cloudflare Workers CLI for deploying, developing, and managing Workers, KV, R2, D1, Vectorize, Hyperdrive, Workers AI, Containers, Queues, Workflows, Pipelines, and Secrets Store. Load before running wrangler commands to ensure correct syntax and best practices. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "files": [
+        "SKILL.md"
       ]
     }
   ]
