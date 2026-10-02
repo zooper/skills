@@ -1,0 +1,11 @@
+{
+  "skills": [
+    {
+      "name": "network-infra-review",
+      "version": "1",
+      "files": [
+        "network-infra-review.md"
+      ]
+    }
+  ]
+}
